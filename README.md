@@ -1,14 +1,16 @@
 moegirl.org dictionary for fcitx5-pinyin
 
-Installation:
+[Releases](https://github.com/outloudvi/fcitx5-pinyin-moegirl/releases)
 
-Download latest version of "moegirl.dict" from: <https://github.com/outloudvi/fcitx5-pinyin-moegirl/releases>
+## Installation
+### Arch Linux
+1. Install the package `fcitx5-pinyin-moegirl` from releases.
 
-Copy into `/usr/share/fcitx5/pinyin/dictionaries/` (create the folder if it does not exist)
+### Others
+1. Download latest version of "moegirl.dict" from releases.
+2. Copy into `/usr/share/fcitx5/pinyin/dictionaries/` (create the folder if it does not exist)
 
-
-
-Build Requirements:
+## Build Requirements
 * libime (https://github.com/fcitx/libime/)
 
 Python modules:
@@ -18,13 +20,13 @@ Python modules:
 NPM modules:
 * axios
 
-
 Manual Build & Installation:
 ```
 make
 sudo make install
 ```
 
-License: Unlicense
+## License
+Unlicense
 
 Note that the generated dictionary follows Moegirl.org's license: <https://zh.moegirl.org/萌娘百科:版权信息>
