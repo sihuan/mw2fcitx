@@ -2,8 +2,6 @@ all: build
 
 build: moegirl.dict
 
-download: $(FILENAME).gz
-
 titles.txt: prepare
 	node fetch.js
 
