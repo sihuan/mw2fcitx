@@ -1,22 +1,23 @@
-FILENAME=zhwiki-20200501-all-titles-in-ns0
-
 all: build
 
-build: zhwiki.dict
+build: moegirl.dict
 
 download: $(FILENAME).gz
 
-$(FILENAME).gz:
-	wget https://dumps.wikimedia.org/zhwiki/20200501/$(FILENAME).gz
+titles.txt: prepare
+	node fetch.js
 
-$(FILENAME): $(FILENAME).gz
-	gzip -k -d $(FILENAME).gz
+results.txt: titles.txt
+	node collate.js
 
-zhwiki.raw: $(FILENAME)
-	./convert.py $(FILENAME) > zhwiki.raw
+moegirl.raw: results.txt
+	./convert.py results.txt > moegirl.raw
 
-zhwiki.dict: zhwiki.raw
-	libime_pinyindict zhwiki.raw zhwiki.dict
+moegirl.dict: moegirl.raw
+	libime_pinyindict moegirl.raw moegirl.dict
 
-install: zhwiki.dict
-	install -Dm644 zhwiki.dict -t $(DESTDIR)/usr/share/fcitx5/pinyin/dictionaries/
+install: moegirl.dict
+	install -Dm644 moegirl.dict -t $(DESTDIR)/usr/share/fcitx5/pinyin/dictionaries/
+
+prepare:
+	npm install axios

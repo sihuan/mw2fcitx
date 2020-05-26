@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
 import re
@@ -30,7 +29,7 @@ with open(FILE) as f:
 
         pinyin = "'".join(lazy_pinyin(line))
         if pinyin == line:
-            print("Failed to convert, ignoring:", pinyin, file=sys.stderr)
+            # print("Failed to convert, ignoring:", pinyin, file=sys.stderr)
             continue
 
         last_word = line
