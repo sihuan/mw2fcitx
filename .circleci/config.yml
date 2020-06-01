@@ -5,6 +5,6 @@ jobs:
       - image: archlinux/base
     steps:
       - checkout
-      - run: pacman -S --noconfirm libime python-pip make
+      - run: pacman -Sy --noconfirm libime python-pip make
       - run: pip install opencc pypinyin
       - run: bash tests/test.sh
