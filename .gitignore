@@ -1,4 +1,4 @@
-*.txt
-*.raw
-*.dict
-*.dict.yaml
+/*.txt
+/*.raw
+/*.dict
+/*.dict.yaml
