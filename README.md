@@ -1,4 +1,6 @@
-moegirl.org dictionary for fcitx5-pinyin
+# moegirl.org dictionary for fcitx5-pinyin
+
+[![CircleCI](https://circleci.com/gh/outloudvi/fcitx5-pinyin-moegirl.svg?style=svg)](https://circleci.com/gh/outloudvi/fcitx5-pinyin-moegirl)
 
 [Releases](https://github.com/outloudvi/fcitx5-pinyin-moegirl/releases)
 
