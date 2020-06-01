@@ -18,3 +18,13 @@ moegirl.dict: moegirl.raw
 
 install: moegirl.dict
 	install -Dm644 moegirl.dict -t $(DESTDIR)/usr/share/fcitx5/pinyin/dictionaries/
+
+moegirl.dict.yaml: moegirl.raw
+	sed 's/[ ][ ]*/\t/g' moegirl.raw > moegirl.rime.raw
+	sed -i 's/\t0//g' moegirl.rime.raw
+	sed -i "s/'/ /g" moegirl.rime.raw
+	echo -e '---\nname: moegirl\nversion: "0.1"\nsort: by_weight\n...\n' >> moegirl.dict.yaml
+	cat moegirl.rime.raw >> moegirl.dict.yaml
+
+install_rime_dict: moegirl.dict.yaml
+	install -Dm644 moegirl.dict.yaml -t $(DESTDIR)/usr/share/rime-data/
