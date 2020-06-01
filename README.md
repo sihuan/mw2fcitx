@@ -17,9 +17,6 @@ Python modules:
 * opencc (https://pypi.org/project/OpenCC/)
 * pypinyin (https://pypi.org/project/pypinyin/)
 
-NPM modules:
-* axios
-
 Manual Build & Installation:
 ```
 make
