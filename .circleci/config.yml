@@ -1,0 +1,10 @@
+version: 2.1
+jobs:
+  build:
+    docker: 
+      - image: archlinux/base
+    steps:
+      - checkout
+      - run: pacman -S --noconfirm libime python-pip make
+      - run: pip install opencc pypinyin
+      - run: bash tests/test.sh
