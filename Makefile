@@ -5,13 +5,13 @@ all: build
 build: moegirl.dict
 
 titles.txt:
-	./fetch.py $(MEDIAWIKI_API_ENDPOINT) titles.txt
+	python ./fetch.py $(MEDIAWIKI_API_ENDPOINT) titles.txt
 
 results.txt: titles.txt
-	node collate.js
+	python ./collate_moegirl.py titles.txt
 
 moegirl.raw: results.txt
-	./convert.py results.txt > moegirl.raw
+	python ./convert.py results.txt > moegirl.raw
 
 moegirl.dict: moegirl.raw
 	libime_pinyindict moegirl.raw moegirl.dict
