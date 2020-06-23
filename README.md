@@ -1,4 +1,4 @@
-# moegirl.org dictionary for fcitx5-pinyin
+# moegirl.org dictionary for fcitx5-pinyin (or any MediaWiki instance!)
 
 [![CircleCI](https://circleci.com/gh/outloudvi/fcitx5-pinyin-moegirl.svg?style=svg)](https://circleci.com/gh/outloudvi/fcitx5-pinyin-moegirl)
 
