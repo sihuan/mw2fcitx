@@ -15,6 +15,7 @@ jobs:
           command: |
             useradd archbuild
             chmod -R a+rwx /root
+            export DATE=`date +%Y%m%d`
             su archbuild utils/makepkg.sh
       - run:
           name: Copy files to artifacts directory
