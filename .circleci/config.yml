@@ -5,7 +5,7 @@ jobs:
       - image: archlinux/base
     steps:
       - checkout
-      - run: pacman -Sy --noconfirm libime python-pip make
+      - run: pacman -Sy --noconfirm base-devel libime python-pip make
       - run: pip install opencc pypinyin
       - run:
           name: Build the dictionary
@@ -13,10 +13,9 @@ jobs:
       - run:
           name: Build the packages
           command: |
-            cp utils/PKGBUILD.* .
-            sed -i 's/99999999/20200625/' PKGBUILD.*
-            makepkg -p utils/PKGBUILD.pinyin
-            makepkg -p utils/PKGBUILD.rime
+            useradd archbuild
+            chmod a+rwx /root
+            su archbuild utils/makepkg.sh
       - run:
           name: Copy files to artifacts directory
           command: |
