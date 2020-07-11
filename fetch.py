@@ -3,6 +3,7 @@ import sys
 import json
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
+from retry import retry
 
 
 class StatusError(Exception):
@@ -10,15 +11,14 @@ class StatusError(Exception):
         super().__init__("HTTP status is {}".format(code))
 
 
-def generate_request(url):
-    return Request(url, headers={
+@retry()
+def open_request(url):
+    return urlopen(Request(url, headers={
         "User-Agent": "PyFcitxDictBot/1.0"
-    })
-
+    }))
 
 def fetch(url):
-    req = generate_request(url)
-    res = urlopen(req)
+    res = open_request(url)
     if res.status == 200:
         return json.loads(res.read())
     else:
