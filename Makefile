@@ -30,3 +30,10 @@ moegirl.dict.yaml: moegirl.raw
 
 install_rime_dict: moegirl.dict.yaml
 	install -Dm644 moegirl.dict.yaml -t $(DESTDIR)/usr/share/rime-data/
+
+clean:
+	rm -f results.txt titles.txt
+	rm -f moegirl.{raw,rime.raw,dict{,.yaml}}
+	rm -f PKGBUILD.{pinyin,rime}
+	rm -f fcitx5-pinyin-moegirl*
+	rm -rf src/ pkg/
