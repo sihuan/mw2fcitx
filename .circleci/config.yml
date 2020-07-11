@@ -7,11 +7,21 @@ jobs:
       - checkout
       - run: pacman -Sy --noconfirm libime python-pip make
       - run: pip install opencc pypinyin
-      - run: bash tests/test.sh
+      - run:
+          name: Build the dictionary
+          command: bash utils/builddict.sh
+      - run:
+          name: Build the packages
+          command: |
+            cp utils/PKGBUILD.* .
+            sed -i 's/99999999/20200625/' PKGBUILD.*
+            makepkg -p utils/PKGBUILD.pinyin
+            makepkg -p utils/PKGBUILD.rime
       - run:
           name: Copy files to artifacts directory
           command: |
             mkdir artifacts
+            cp fcitx5-pinyin-moegirl* artifacts
             cp ./moegirl.dict artifacts
             cp ./moegirl.dict.yaml artifacts
       - run:
