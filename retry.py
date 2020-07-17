@@ -10,7 +10,7 @@ def retry(tries=4, delay=3, backoff=2):
             while mtries > 1:
                 try:
                     return f(*args, **kwargs)
-                except Exception:
+                except Exception as e:
                     print("%s, Retrying in %d seconds..." % (str(e), mdelay))
                     time.sleep(mdelay)
                     mtries -= 1
