@@ -4,7 +4,7 @@ all: build
 
 build: moegirl.dict
 
-.INTERMEDIATE: titles.txt
+.PRECIOUS: titles.txt
 
 titles.txt:
 	python ./fetch.py $(MEDIAWIKI_API_ENDPOINT) titles.txt

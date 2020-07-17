@@ -24,6 +24,7 @@ jobs:
             cp fcitx5-pinyin-moegirl* artifacts
             cp ./moegirl.dict artifacts
             cp ./moegirl.dict.yaml artifacts
+            cp ./titles.txt artifacts
       - run:
           name: Display artifact list
           command: ls -lah artifacts/
