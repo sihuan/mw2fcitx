@@ -25,6 +25,8 @@ jobs:
             cp ./moegirl.dict artifacts
             cp ./moegirl.dict.yaml artifacts
             cp ./titles.txt artifacts
+      - store_artifacts:
+          path: ./artifacts
       - run:
           name: Display artifact list
           command: ls -lah artifacts/
