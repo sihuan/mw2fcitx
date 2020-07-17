@@ -52,9 +52,6 @@ jobs:
             ghr_v0.13.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${DATE} ./artifacts/
 workflows:
   version: 2
-  test:
-    jobs:
-      - build
   monthly:
     triggers:
       - schedule:
