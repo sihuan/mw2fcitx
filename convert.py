@@ -3,6 +3,7 @@ import sys
 import re
 import opencc
 from pypinyin import lazy_pinyin
+from manual_fix import manual_fix
 
 FILE = sys.argv[1]
 
@@ -31,6 +32,10 @@ with open(FILE) as f:
         if pinyin == line:
             # print("Failed to convert, ignoring:", pinyin, file=sys.stderr)
             continue
+
+        if manual_fix(line):
+            pinyin = manual_fix(line)
+            print(f"Fixing {line} to {pinyin}", file=sys.stderr)
 
         last_word = line
 
