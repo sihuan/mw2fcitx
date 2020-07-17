@@ -53,9 +53,6 @@ workflows:
   test:
     jobs:
       - build
-      - publish_github_release:
-          requires:
-            - build
   monthly:
     triggers:
       - schedule:
