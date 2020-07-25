@@ -1,4 +1,4 @@
-MEDIAWIKI_API_ENDPOINT="https://zh.moegirl.org/api.php"
+MEDIAWIKI_API_ENDPOINT="https://zh.moegirl.org.cn/api.php"
 
 all: build
 
