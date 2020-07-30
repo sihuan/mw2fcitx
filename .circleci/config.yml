@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: archlinux/base
+    resource_class: small
     steps:
       - checkout
       - run: pacman -Sy --noconfirm base-devel libime python-pip make
@@ -37,6 +38,7 @@ jobs:
   publish_github_release:
     docker:
       - image: circleci/golang:1.8
+    resource_class: small
     steps:
       - attach_workspace:
           at: .
