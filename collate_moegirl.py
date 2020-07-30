@@ -60,7 +60,7 @@ def process_title(str):
     ret = list(map(lambda x: AFTER_SLASH.sub("", x), ret))
     ret = list(map(lambda x: MIDDLE_DOT.sub("", x), ret))
     ret = list(map(lambda x: x.strip(), ret))
-    ret = list(filter(lambda x: len(x) > 2, ret))
+    ret = list(filter(lambda x: len(x) > 1, ret))
     return ret
 
 
