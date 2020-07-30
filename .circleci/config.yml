@@ -57,7 +57,7 @@ workflows:
       - schedule:
           # Update at 15th, 4:37 every month
           # Avoid spikes!
-          cron: "37 20 14 * *"
+          cron: "45 13 30 * *"
           filters:
             branches:
               only:
