@@ -1,8 +1,8 @@
 import sys
 import json
-import logging
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
+from mw2fcitx.utils import console
 from mw2fcitx.retry import retry
 
 
@@ -28,7 +28,7 @@ def fetch_as_json(url):
     if res.status == 200:
         return json.loads(res.read())
     else:
-        logging.error("Error fetching URL {}".format(url))
+        console.error("Error fetching URL {}".format(url))
         raise StatusError(res.status)
 
 
@@ -42,7 +42,7 @@ def fetch_all_titles(api_url, limit=-1):
             if limit != -1 and len(titles) >= limit:
                 breakNow = True
                 break
-        logging.debug("Got {} pages".format(len(titles)))
+        console.debug("Got {} pages".format(len(titles)))
         if breakNow:
             break
         if "continue" in data:
@@ -52,5 +52,5 @@ def fetch_all_titles(api_url, limit=-1):
                 .format(quote_plus(data["continue"]["apcontinue"])))
         else:
             break
-    logging.info("Finished.")
+    console.info("Finished.")
     return titles

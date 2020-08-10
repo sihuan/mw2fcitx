@@ -1,7 +1,5 @@
 from mw2fcitx.pipeline import MWFPipeline
 from mw2fcitx.tweaks.moegirl import tweaks as moegirl_tweaks
-import logging
-logging.basicConfig(level=logging.DEBUG)
 
 
 def test_pipeline_basic():

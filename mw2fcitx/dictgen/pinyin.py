@@ -1,11 +1,11 @@
 import tempfile
 import subprocess
-import logging
+from mw2fcitx.utils import console
 
 
 def gen(text, **kwargs):
     file = tempfile.NamedTemporaryFile("w+")
     file.write(text)
-    logging.info("Running libime_pinyindict...")
+    console.info("Running libime_pinyindict...")
     subprocess.run(["libime_pinyindict", file.name, kwargs["output"]])
-    logging.info("Dictionary generated.")
+    console.info("Dictionary generated.")

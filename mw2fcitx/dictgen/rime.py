@@ -1,6 +1,6 @@
 import tempfile
 import subprocess
-import logging
+from mw2fcitx.utils import console
 import re
 
 
@@ -17,5 +17,5 @@ def gen(text, **kwargs):
             file.write(text)
     else:
         print(text)
-    logging.info("Dictionary generated.")
+    console.info("Dictionary generated.")
     return text

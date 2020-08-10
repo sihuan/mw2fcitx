@@ -1,4 +1,4 @@
-import logging
+from mw2fcitx.utils import console
 import sys
 import re
 
@@ -36,7 +36,7 @@ def export(words):
 
         if manual_fix(line):
             pinyin = manual_fix(line)
-            logging.debug(f"Fixing {line} to {pinyin}", file=sys.stderr)
+            console.debug(f"Fixing {line} to {pinyin}", file=sys.stderr)
 
         last_word = line
 
@@ -44,8 +44,8 @@ def export(words):
         result += "\n"
         count += 1
         if count % 1000 == 0:
-            logging.debug(str(count) + " converted")
+            console.debug(str(count) + " converted")
 
     if count % 1000 != 0:
-        logging.debug(str(count) + " converted")
+        console.debug(str(count) + " converted")
     return result
