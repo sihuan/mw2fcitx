@@ -19,8 +19,8 @@ class MWFPipeline():
         console.debug("{} title(s) imported.".format(len(titles)))
         self.words = self.titles
 
-    def fetch_titles(self, limit=-1):
-        titles = fetch_all_titles(self.api_path, limit=limit)
+    def fetch_titles(self, **kwargs):
+        titles = fetch_all_titles(self.api_path, **kwargs)
         self.load_titles(titles)
 
     def reset_words(self):
@@ -33,20 +33,20 @@ class MWFPipeline():
             pipelines = [pipelines]
         titles = self.titles
         for i in pipelines:
-            titles = i(titles)
             cnt += 1
-            console.debug("{}/{} pipelines finished".format(
-                cnt, len(pipelines)))
+            console.debug("Running pipeline {}/{} ({})".format(
+                cnt, len(pipelines), i.__name__ or "anonymous function"))
+            titles = i(titles)
         self.words = dedup(titles)
 
-    def export_words(self, converter="opencc"):
+    def export_words(self, converter="opencc", **kwargs):
         if converter == "opencc":
             console.debug("Exporting words with OpenCC")
             from mw2fcitx.exporters.opencc import export
-            self.exports = export(self.words)
+            self.exports = export(self.words, **kwargs)
         elif type(converter) == type(self.export_words):
             console.debug("Exporting words with custom converter")
-            self.exports = converter(self.words)
+            self.exports = converter(self.words, **kwargs)
         else:
             console.error("No such exporter: {}".format(converter))
 
