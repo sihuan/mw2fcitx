@@ -1,6 +1,8 @@
 from mw2fcitx.fetch import fetch_all_titles
 from mw2fcitx.utils import dedup
 from mw2fcitx.utils import console
+import os
+import sys
 
 
 class MWFPipeline():
@@ -18,6 +20,12 @@ class MWFPipeline():
         self.titles = titles
         console.debug("{} title(s) imported.".format(len(titles)))
         self.words = self.titles
+
+    def load_titles_from_file(self, filename):
+        if not os.access(filename, os.R_OK):
+            console.error("File {} is not readable".format(filename))
+            sys.exit(1)
+        self.load_titles(open(filename,"r").read())
 
     def fetch_titles(self, **kwargs):
         titles = fetch_all_titles(self.api_path, **kwargs)
