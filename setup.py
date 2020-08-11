@@ -23,6 +23,10 @@ setup(name='mw2fcitx',
       license='Unlicense',
       include_package_data=True,
       packages=find_packages(),
+      install_requires=[
+          "OpenCC>=1.1.1.post1",
+          "pypinyin>=0.38.1",
+      ],
       entry_points={'console_scripts': ['mw2fcitx = mw2fcitx.main:main',]},
       classifiers=[
           'Topic :: Software Development :: Libraries :: Python Modules',
