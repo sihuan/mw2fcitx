@@ -46,6 +46,6 @@ def export(words):
         if count % 1000 == 0:
             console.debug(str(count) + " converted")
 
-    if count % 1000 != 0:
+    if count % 1000 != 0 or count == 0:
         console.debug(str(count) + " converted")
     return result
