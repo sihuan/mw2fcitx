@@ -21,15 +21,30 @@ class MWFPipeline():
         console.debug("{} title(s) imported.".format(len(titles)))
         self.words = self.titles
 
-    def load_titles_from_file(self, filename):
+    def write_titles_to_file(self, filename):
+        try:
+            with open(filename, "w") as file:
+                file.write("\n".join(self.titles))
+        except Exception as e:
+            console.error("File {} is not writable: {}".format(
+                filename, str(e)))
+            sys.exit(1)
+
+    def post_load(self, **kwargs):
+        if kwargs.get("output"):
+            self.write_titles_to_file(kwargs.get("output"))
+
+    def load_titles_from_file(self, filename, **kwargs):
         if not os.access(filename, os.R_OK):
             console.error("File {} is not readable".format(filename))
             sys.exit(1)
-        self.load_titles(open(filename,"r").read())
+        self.load_titles(open(filename, "r").read())
+        self.post_load(**kwargs)
 
     def fetch_titles(self, **kwargs):
         titles = fetch_all_titles(self.api_path, **kwargs)
         self.load_titles(titles)
+        self.post_load(**kwargs)
 
     def reset_words(self):
         self.words = self.titles

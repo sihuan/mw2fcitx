@@ -1,6 +1,7 @@
 from mw2fcitx.pipeline import MWFPipeline
 import logging
 import sys
+import os
 
 
 def build(config):
@@ -14,7 +15,8 @@ def build(config):
         if title_file_path is None:
             logging.error("No api_path or file_path provided. Stop.")
             sys.exit(1)
-        pipeline.load_titles_from_file(title_file_path)
+        pipeline.load_titles_from_file(title_file_path,
+                                       **config["source"].get("kwargs"))
     else:
         pipeline.fetch_titles(**config["source"].get("kwargs"))
     pipeline.convert_to_words(config["tweaks"])
