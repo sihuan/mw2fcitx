@@ -41,11 +41,13 @@ class MWFPipeline():
 
     def export_words(self, converter="opencc", **kwargs):
         if converter == "opencc":
-            console.debug("Exporting words with OpenCC")
+            console.debug("Exporting {} words with OpenCC".format(
+                len(self.words)))
             from mw2fcitx.exporters.opencc import export
             self.exports = export(self.words, **kwargs)
         elif type(converter) == type(self.export_words):
-            console.debug("Exporting words with custom converter")
+            console.debug("Exporting {} words with custom converter".format(
+                len(self.words)))
             self.exports = converter(self.words, **kwargs)
         else:
             console.error("No such exporter: {}".format(converter))
