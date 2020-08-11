@@ -6,14 +6,7 @@
 import os.path
 import warnings
 import sys
-
-try:
-    from setuptools import setup, Command
-    setuptools_available = True
-except ImportError:
-    from distutils.core import setup, Command
-    setuptools_available = False
-from distutils.spawn import spawn
+from setuptools import setup, Command, find_packages
 
 exec(compile(open('mw2fcitx/version.py').read(), 'mw2fcitx/version.py', 'exec'))
 
@@ -27,10 +20,9 @@ setup(name='mw2fcitx',
       author='Outvi V',
       author_email='oss@outv.im',
       license='Unlicense',
-      packages=[
-          'mw2fcitx', 'mw2fcitx.exporters', 'mw2fcitx.utils', 'mw2fcitx.tweaks',
-          'mw2fcitx.dictgen'
-      ],
+      include_package_data=True,
+      packages=find_packages(),
+      entry_points={'console_scripts': ['mw2fcitx = mw2fcitx.main:main',]},
       classifiers=[
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Development Status :: 4 - Beta', 'Environment :: Console',
