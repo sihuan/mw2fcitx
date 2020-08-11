@@ -32,7 +32,10 @@ def fetch_as_json(url):
         raise StatusError(res.status)
 
 
-def fetch_all_titles(api_url, limit=-1):
+def fetch_all_titles(api_url, **kwargs):
+    limit = kwargs.get("title_limit") or -1
+    console.debug("Fetching titles from {}".format(api_url) +
+                  (" with a limit of {}".format(limit) if limit != -1 else ""))
     titles = []
     data = fetch_as_json(api_url + "?action=query&list=allpages&format=json")
     breakNow = False
