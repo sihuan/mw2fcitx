@@ -17,5 +17,3 @@ exports = {
         "kwargs": {}
     }
 }
-
-print("ok")
