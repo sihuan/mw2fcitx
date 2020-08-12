@@ -4,6 +4,7 @@ Build fcitx5 libraries from MediaWiki sites.
 
 [![PyPI](https://img.shields.io/pypi/v/mw2fcitx)](https://pypi.org/project/mw2fcitx/)
 [![PyPI - License](https://img.shields.io/pypi/l/mw2fcitx)](https://github.com/outloudvi/mw2fcitx/blob/master/LICENSE)
+[![CircleCI](https://circleci.com/gh/outloudvi/mw2fcitx.svg?style=svg)](https://circleci.com/gh/outloudvi/mw2fcitx)
 
 ```sh
 pip install mw2fcitx
