@@ -4,7 +4,6 @@ exports = {
     "source": {
         "api_path": "https://zh.moegirl.org.cn/api.php",
         "kwargs": {
-            "title_limit": 300,
             "output": "titles.txt"
         }
     },

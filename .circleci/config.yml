@@ -60,6 +60,6 @@ workflows:
   test:
     jobs:
       - build_moegirl
-      # - publish_github_release:
-      #     requires:
-      #       - build_moegirl
+      - publish_github_release:
+          requires:
+            - build_moegirl
