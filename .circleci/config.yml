@@ -26,7 +26,6 @@ jobs:
           command: |
             pacman -Sy --noconfirm base-devel libime python-pip
             pip install opencc pypinyin setuptools pytest pytest-cov coverage mw2fcitx
-            python setup.py install
       - run:
           name: Build the dictionary
           command: mw2fcitx -c utils/moegirl_dict.py
