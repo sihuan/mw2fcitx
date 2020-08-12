@@ -1,0 +1,94 @@
+version: 2.1
+jobs:
+  install_and_test:
+    docker:
+      - image: archlinux/base
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pacman -Sy --noconfirm base-devel libime python-pip
+            pip install opencc pypinyin setuptools pytest pytest-cov coverage
+            python setup.py install
+      - run:
+          name: Run tests
+          command: |
+            bash utils/test.sh
+  build_moegirl:
+    docker:
+      - image: archlinux/base
+    resource_class: small
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            pacman -Sy --noconfirm base-devel libime python-pip
+            pip install opencc pypinyin setuptools pytest pytest-cov coverage mw2fcitx
+            python setup.py install
+      - run:
+          name: Build the dictionary
+          command: mw2fcitx -c utils/moegirl_dict.py
+      - run:
+          name: Build the packages
+          command: |
+            useradd archbuild
+            chmod -R a+rwx /root
+            export DATE=`date +%Y%m%d`
+            su archbuild utils/makepkg.sh
+      - run:
+          name: Copy files to artifacts directory
+          command: |
+            mkdir artifacts
+            cp fcitx5-pinyin-moegirl* artifacts
+            cp ./moegirl.dict artifacts
+            cp ./moegirl.dict.yaml artifacts
+            cp ./titles.txt artifacts
+      - store_artifacts:
+          path: ./artifacts
+      - run:
+          name: Display artifact list
+          command: ls -lah artifacts/
+      - persist_to_workspace:
+          root: .
+          paths:
+            - artifacts/*
+  publish_github_release:
+    docker:
+      - image: circleci/golang:1.8
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Display artifact list
+          command: ls -lah artifacts/
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            export DATE=`date +%Y%m%d`
+            wget https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz -O ghr.tgz
+            tar xzf ghr.tgz
+            ghr_v0.13.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${DATE} ./artifacts/
+workflows:
+  version: 2
+  monthly:
+    triggers:
+      - schedule:
+          # Update at 15th, 4:37 every month
+          # Avoid spikes!
+          cron: "37 20 14 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - install_and_test
+      - build_moegirl
+      - publish_github_release:
+          requires:
+            - build_moegirl
+  test:
+    jobs:
+      - install_and_test
