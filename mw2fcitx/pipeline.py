@@ -39,7 +39,6 @@ class MWFPipeline():
             console.error("File {} is not readable".format(filename))
             sys.exit(1)
         self.load_titles(open(filename, "r").read())
-        self.post_load(**kwargs)
 
     def fetch_titles(self, **kwargs):
         titles = fetch_all_titles(self.api_path, **kwargs)
