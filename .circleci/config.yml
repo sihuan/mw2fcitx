@@ -1,21 +1,5 @@
 version: 2.1
 jobs:
-  install_and_test:
-    docker:
-      - image: archlinux/base
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            pacman -Sy --noconfirm base-devel libime python-pip
-            pip install opencc pypinyin setuptools pytest pytest-cov coverage
-            python setup.py install
-      - run:
-          name: Run tests
-          command: |
-            bash utils/test.sh
   build_moegirl:
     docker:
       - image: archlinux/base
@@ -26,6 +10,7 @@ jobs:
           command: |
             pacman -Sy --noconfirm base-devel libime python-pip
             pip install opencc pypinyin setuptools pytest pytest-cov coverage mw2fcitx
+      - checkout
       - run:
           name: Build the dictionary
           command: mw2fcitx -c utils/moegirl_dict.py
