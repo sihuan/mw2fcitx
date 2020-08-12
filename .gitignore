@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -138,5 +138,7 @@ dmypy.json
 cython_debug/
 
 /*.raw
-/*.dict
-/*.dict.yaml
+*.dict
+*.dict.yaml
+titles.txt
+/.vscode
