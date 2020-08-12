@@ -3,13 +3,17 @@
 Build fcitx5 libraries from MediaWiki sites.
 
 [![PyPI](https://img.shields.io/pypi/v/mw2fcitx)](https://pypi.org/project/mw2fcitx/)
-[![PyPI - License](https://img.shields.io/pypi/l/mw2fcitx)](https://github.com/outloudvi/fcitx5-pinyin-moegirl/blob/master/LICENSE)
+[![PyPI - License](https://img.shields.io/pypi/l/mw2fcitx)](https://github.com/outloudvi/mw2fcitx/blob/master/LICENSE)
 
 ```sh
 pip install mw2fcitx
 # or if you want to just install for current user
 pip install mw2fcitx --user
 ```
+
+For the old `fcitx5-pinyin-moegirl`, see [branch v1](https://github.com/outloudvi/mw2fcitx/tree/v1).
+
+For the pre-build moegirl dictionary info, see [the wiki](https://github.com/outloudvi/mw2fcitx/wiki/fcitx5-pinyin-moegirl).
 
 ## CLI Usage
 
@@ -72,8 +76,8 @@ exports = {
 }
 ```
 
-A sample config file is here: [`sample_config.py`](https://github.com/outloudvi/fcitx5-pinyin-moegirl/blob/v2/mw2fcitx/sample_config.py)
+A sample config file is here: [`sample_config.py`](https://github.com/outloudvi/mw2fcitx/blob/v2/mw2fcitx/sample_config.py)
 
 ## License
 
-[The Unlicense](https://github.com/outloudvi/fcitx5-pinyin-moegirl/blob/master/LICENSE)
+[The Unlicense](https://github.com/outloudvi/mw2fcitx/blob/master/LICENSE)
