@@ -73,22 +73,9 @@ jobs:
             ghr_v0.13.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${DATE} ./artifacts/
 workflows:
   version: 2
-  monthly:
-    triggers:
-      - schedule:
-          # Update at 15th, 4:37 every month
-          # Avoid spikes!
-          cron: "37 20 14 * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - install_and_test
-      - build_moegirl
-      - publish_github_release:
-          requires:
-            - build_moegirl
   test:
     jobs:
-      - install_and_test
+      - build_moegirl
+      # - publish_github_release:
+      #     requires:
+      #       - build_moegirl
