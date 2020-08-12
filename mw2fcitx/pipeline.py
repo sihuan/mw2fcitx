@@ -59,7 +59,10 @@ class MWFPipeline():
             console.debug("Running pipeline {}/{} ({})".format(
                 cnt, len(pipelines), i.__name__ or "anonymous function"))
             titles = i(titles)
+        console.debug("Deduplicating {} items".format(len(titles)))
         self.words = dedup(titles)
+        console.debug("Deduplication completed. {} items left.".format(
+            len(self.words)))
 
     def export_words(self, converter="opencc", **kwargs):
         if converter == "opencc":
