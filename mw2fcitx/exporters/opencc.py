@@ -36,7 +36,7 @@ def export(words):
 
         if manual_fix(line):
             pinyin = manual_fix(line)
-            console.debug(f"Fixing {line} to {pinyin}", file=sys.stderr)
+            console.debug(f"Fixing {line} to {pinyin}")
 
         last_word = line
 
