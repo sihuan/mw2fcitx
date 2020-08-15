@@ -66,7 +66,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - pkg-moegirl
     jobs:
       - build_moegirl
       - publish_github_release:
