@@ -77,7 +77,7 @@ exports = {
 }
 ```
 
-A sample config file is here: [`sample_config.py`](https://github.com/outloudvi/mw2fcitx/blob/v2/mw2fcitx/sample_config.py)
+A sample config file is here: [`sample_config.py`](https://github.com/outloudvi/mw2fcitx/blob/master/mw2fcitx/sample_config.py)
 
 ## License
 
