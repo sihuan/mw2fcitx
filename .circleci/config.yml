@@ -14,6 +14,7 @@ jobs:
       - run:
           name: Build the dictionary
           command: mw2fcitx -c utils/moegirl_dict.py
+          no_output_timeout: 30m
       - run:
           name: Build the packages
           command: |
