@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import mw2fcitx
+from mw2fcitx import main
 
 if __name__ == '__main__':
-    mw2fcitx.main()
+    main()
