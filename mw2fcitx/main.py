@@ -47,7 +47,7 @@ def try_file(file):
 
 
 def main():
-    (options, _) = get_args()
+    options = get_args()
     file = options.config
     objname = options.name
     if file.endswith(".py"):
