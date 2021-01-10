@@ -38,7 +38,8 @@ def try_file(file):
     try:
         sys.path.insert(1, file_path)
         config_file = import_module(module_name)
-    except Exception:
+    except Exception as e:
+        console.error("Error reading config: {}".format(str(e)))
         return False
     finally:
         sys.path.remove(file_path)
