@@ -22,7 +22,12 @@ setup(name='mw2fcitx',
       author_email='oss@outv.im',
       license='Unlicense',
       include_package_data=True,
-      packages=find_packages(),
+      packages=[
+          'mw2fcitx',
+          'mw2fcitx.dictgen',
+          'mw2fcitx.tweaks',
+          'mw2fcitx.exporters'
+      ],
       install_requires=[
           "OpenCC>=1.1.1.post1",
           "pypinyin>=0.38.1",
