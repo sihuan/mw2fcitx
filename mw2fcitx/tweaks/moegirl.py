@@ -55,6 +55,17 @@ def tweak_split_word_with(spliters):
 
     return cb
 
+def tweak_trim_suffix(suffixes):
+    def cb(items: [str]):
+        ret = []
+        for i in items:
+            for j in suffixes:
+                i = i.rstrip(j)
+            ret.push(i)
+        return ret 
+
+    
+    return cb
 
 def tweak_normalize(words):
     ret = []
@@ -68,5 +79,7 @@ tweaks = [
     tweak_split_word_with(
         [":", "/", "(", ")", "（", "）", "【", "】", "『", "』", "／"]),
     tweak_len_more_than(1),
-    tweak_remove_char("·"), tweak_normalize
+    tweak_remove_char("·"),
+    tweak_trim_suffix(["系列"])
+    tweak_normalize
 ]
