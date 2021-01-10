@@ -1,5 +1,4 @@
 from copy import deepcopy
-import json
 
 
 def sanitize(obj):
@@ -8,7 +7,7 @@ def sanitize(obj):
     if typ == type(sanitize):
         func_name = res.__name__ or "lambda"
         return "[func {}]".format(func_name)
-    elif typ == type({}):
+    if typ == type({}):
         for i in res.keys():
             res[i] = sanitize(res[i])
     elif typ == type([]):

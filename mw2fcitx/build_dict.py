@@ -1,7 +1,7 @@
-from mw2fcitx.pipeline import MWFPipeline
 import logging
 import sys
-import os
+
+from mw2fcitx.pipeline import MWFPipeline
 
 
 def build(config):
@@ -23,7 +23,7 @@ def build(config):
     pipeline.export_words(config["converter"].get("use"),
                           **config["converter"].get("kwargs"))
     generators = config["generator"]
-    if type(generators) != type([]):
+    if isinstance(generators, list):
         generators = [generators]
     for gen in generators:
         pipeline.generate_dict(gen.get("use"), **gen.get("kwargs"))

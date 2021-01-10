@@ -1,26 +1,26 @@
-from optparse import OptionParser
-from importlib import import_module
-from mw2fcitx.build_dict import build
-from mw2fcitx.utils import console, sanitize
 import json
 import os
 import re
 import sys
+from argparse import ArgumentParser
+from importlib import import_module
+from mw2fcitx.build_dict import build
+from mw2fcitx.utils import console, sanitize
 
 
 def get_args():
-    parser = OptionParser(
+    parser = ArgumentParser(
         usage="Fetch titles from online and generate a dictionary.")
-    parser.add_option("-c",
-                      "--config",
-                      dest="config",
-                      default="config.py",
-                      help="configuration file location")
-    parser.add_option("-n",
-                      "--name",
-                      dest="name",
-                      default="exports",
-                      help="configuration object name")
+    parser.add_argument("-c",
+                        "--config",
+                        dest="config",
+                        default="config.py",
+                        help="configuration file location")
+    parser.add_argument("-n",
+                        "--name",
+                        dest="name",
+                        default="exports",
+                        help="configuration object name")
 
     return parser.parse_args()
 
@@ -52,14 +52,14 @@ def main():
     objname = options.name
     if file.endswith(".py"):
         config_base = try_file(file)
-        if config_base == False:
+        if not config_base:
             # I don't think it works... but let's put it here
             config_base = try_file(file + ".py")
     else:
         config_base = try_file(file + ".py")
-    if config_base == False:
+    if not config_base:
         console.error("Config file {} not found or not readable".format(
-            "{}, {}.py".format(file, file) if file.endswith("py") else file))
+            f"{file}, {file}.py" if file.endswith("py") else file))
         sys.exit(1)
     console.debug("Parsing config file: {}".format(file))
     if objname not in dir(config_base):

@@ -1,9 +1,7 @@
-from mw2fcitx.utils import console
-import sys
 import re
-
 from pypinyin import lazy_pinyin
 import opencc
+from mw2fcitx.utils import console
 from mw2fcitx.utils import manual_fix
 
 
@@ -19,7 +17,7 @@ def export(words):
             continue
 
         # Skip single character & too long pages
-        if not 1 < len(line):
+        if len(line) > 1:
             continue
 
         # Skip list pages

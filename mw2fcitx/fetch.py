@@ -1,4 +1,3 @@
-import sys
 import json
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
@@ -27,9 +26,8 @@ def fetch_as_json(url):
     res = open_request(url)
     if res.status == 200:
         return json.loads(res.read())
-    else:
-        console.error("Error fetching URL {}".format(url))
-        raise StatusError(res.status)
+    console.error("Error fetching URL {}".format(url))
+    raise StatusError(res.status)
 
 
 def fetch_all_titles(api_url, **kwargs):

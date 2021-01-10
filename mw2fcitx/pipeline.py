@@ -1,8 +1,10 @@
+# pylint: disable=import-outside-toplevel
+
+import os
+import sys
 from mw2fcitx.fetch import fetch_all_titles
 from mw2fcitx.utils import dedup
 from mw2fcitx.utils import console
-import os
-import sys
 
 
 class MWFPipeline():
@@ -15,7 +17,7 @@ class MWFPipeline():
         self.dict = ""
 
     def load_titles(self, titles):
-        if type(titles) == type(""):
+        if isinstance(titles, str):
             titles = titles.split("\n")
         self.titles = titles
         console.debug("{} title(s) imported.".format(len(titles)))
@@ -34,7 +36,7 @@ class MWFPipeline():
         if kwargs.get("output"):
             self.write_titles_to_file(kwargs.get("output"))
 
-    def load_titles_from_file(self, filename, **kwargs):
+    def load_titles_from_file(self, filename, **_kwargs):
         if not os.access(filename, os.R_OK):
             console.error("File {} is not readable".format(filename))
             sys.exit(1)
@@ -48,10 +50,10 @@ class MWFPipeline():
     def reset_words(self):
         self.words = self.titles
 
-    def convert_to_words(self, pipelines=[]):
+    def convert_to_words(self, pipelines):
         console.debug("Running {} pipelines".format(len(pipelines)))
         cnt = 0
-        if type(pipelines) == type(self.convert_to_words):
+        if callable(pipelines):
             pipelines = [pipelines]
         titles = self.titles
         for i in pipelines:
@@ -70,7 +72,7 @@ class MWFPipeline():
                 len(self.words)))
             from mw2fcitx.exporters.opencc import export
             self.exports = export(self.words, **kwargs)
-        elif type(converter) == type(self.export_words):
+        elif callable(converter):
             console.debug("Exporting {} words with custom converter".format(
                 len(self.words)))
             self.exports = converter(self.words, **kwargs)
@@ -83,7 +85,8 @@ class MWFPipeline():
             dest = kwargs.get("output")
             if not dest:
                 console.error(
-                    "Dictgen 'pinyin' can only output to files. Please give the file path in the 'output' argument."
+                    "Dictgen 'pinyin' can only output to files.\n" +
+                    "Please give the file path in the 'output' argument."
                 )
                 return
             pinyin(self.exports, **kwargs)
