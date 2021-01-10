@@ -23,7 +23,7 @@ def build(config):
     pipeline.export_words(config["converter"].get("use"),
                           **config["converter"].get("kwargs"))
     generators = config["generator"]
-    if isinstance(generators, list):
+    if not isinstance(generators, list):
         generators = [generators]
     for gen in generators:
         pipeline.generate_dict(gen.get("use"), **gen.get("kwargs"))
