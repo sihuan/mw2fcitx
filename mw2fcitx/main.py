@@ -28,6 +28,7 @@ def get_args():
 def try_file(file):
     console.debug("Finding config file: {}".format(file))
     if not os.access(file, os.R_OK):
+        console.error("File ({}) not readable.")
         return False
     file_realpath = os.path.realpath(file)
     console.debug("Config file path: {}".format(file_realpath))
