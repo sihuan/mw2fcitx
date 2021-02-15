@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build_moegirl:
     docker:
-      - image: archlinux/base
+      - image: archlinux
     resource_class: small
     steps:
       - checkout
