@@ -73,3 +73,9 @@ workflows:
       - publish_github_release:
           requires:
             - build_moegirl
+  on_demand:
+    jobs:
+      - build_moegirl
+      - publish_github_release:
+          requires:
+            - build_moegirl
