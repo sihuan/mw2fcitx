@@ -2,14 +2,14 @@ version: 2.1
 jobs:
   build_moegirl:
     docker:
-      - image: archlinux
+      - image: archlinux:base-devel-20210207.0.15200
     resource_class: small
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            pacman -Syu --noconfirm base-devel libime python-pip
+            pacman -Syu --noconfirm libime python-pip
             pip install -r requirements.txt
       - run:
           name: Build the dictionary
