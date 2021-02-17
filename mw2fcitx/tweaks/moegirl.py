@@ -1,6 +1,6 @@
 # This collation file is for moegirl.org.
 # It MIGHT NOT be fit for other wikis.
-from mw2fcitx.utils import normalize
+from ..utils import normalize
 
 
 def dont_have(string: str, array: [str]):

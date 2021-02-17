@@ -1,6 +1,6 @@
 import tempfile
 import subprocess
-from mw2fcitx.utils import console
+from ..utils import console
 
 
 def gen(text, **kwargs):

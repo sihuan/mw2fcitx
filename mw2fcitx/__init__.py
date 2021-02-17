@@ -1,1 +1,1 @@
-from mw2fcitx.main import main
+from .main import main

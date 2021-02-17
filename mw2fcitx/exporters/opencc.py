@@ -1,8 +1,8 @@
 import re
 from pypinyin import lazy_pinyin
 import opencc
-from mw2fcitx.utils import console
-from mw2fcitx.utils import manual_fix
+from ..utils import console
+from ..utils import manual_fix
 
 
 def export(words):
