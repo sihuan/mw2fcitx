@@ -3,7 +3,7 @@
 
 # Modified based on https://github.com/ytdl-org/youtube-dl/blob/master/setup.py
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # pylint: disable=exec-used
 exec(compile(open('mw2fcitx/version.py').read(), 'mw2fcitx/version.py', 'exec'))
@@ -21,12 +21,7 @@ setup(name='mw2fcitx',
       author_email='oss@outv.im',
       license='Unlicense',
       include_package_data=True,
-      packages=[
-          'mw2fcitx',
-          'mw2fcitx.dictgen',
-          'mw2fcitx.tweaks',
-          'mw2fcitx.exporters'
-      ],
+      packages=find_packages(),
       install_requires=[
           "OpenCC>=1.1.1.post1",
           "pypinyin>=0.38.1",

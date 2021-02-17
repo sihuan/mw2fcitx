@@ -1,8 +1,9 @@
 import json
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
-from .utils import console
-from .retry import retry
+
+from mw2fcitx.utils import console
+from mw2fcitx.retry import retry
 
 
 class StatusError(Exception):
