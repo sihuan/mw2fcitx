@@ -68,6 +68,22 @@ def tweak_trim_suffix(suffixes):
     return cb
 
 
+def tweak_remove_regex(regexes):
+    from re import compile
+    compiled_regexes = list(map(compile, regexes))
+
+    def cb(items: [str]):
+        ret = items
+
+        for rgx in compiled_regexes:
+            ret = filter(
+                lambda x, rgx=rgx: not rgx.match(x), ret
+            )
+        return list(ret)
+
+    return cb
+
+
 def tweak_normalize(words):
     ret = []
     for i in words:
@@ -78,9 +94,12 @@ def tweak_normalize(words):
 tweaks = [
     tweak_remove_word_includes(["○", "〇"]),
     tweak_split_word_with(
-        [":", "/", "(", ")", "（", "）", "【", "】", "『", "』", "／"]),
+        [":", "/", "(", ")", "（", "）", "【", "】", "『", "』", "／", " ", "!", "！"]),
     tweak_len_more_than(1),
     tweak_remove_char("·"),
     tweak_trim_suffix(["系列", "列表", "对照表"]),
+    tweak_remove_regex([
+        "^第.*(次|话)$"
+    ]),
     tweak_normalize
 ]
