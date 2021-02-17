@@ -17,7 +17,7 @@ def export(words):
             continue
 
         # Skip single character & too long pages
-        if len(line) > 1:
+        if len(line) <= 1:
             continue
 
         # Skip list pages
