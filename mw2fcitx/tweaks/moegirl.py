@@ -61,7 +61,7 @@ def tweak_trim_suffix(suffixes):
         ret = []
         for i in items:
             for j in suffixes:
-                i = i.rstrip(j)
+                i = i.removesuffix(j)
             ret.append(i)
         return ret
 
