@@ -16,17 +16,6 @@ def export(words):
         if not HANZI_RE.match(line):
             continue
 
-        # Skip single character & too long pages
-        if len(line) <= 1:
-            continue
-
-        # Skip list pages
-        if line.endswith(('列表', '对照表')):
-            continue
-
-        if last_word and len(last_word) >= 4 and line.startswith(last_word):
-            continue
-
         pinyin = "'".join(lazy_pinyin(line))
         if pinyin == line:
             # print("Failed to convert, ignoring:", pinyin, file=sys.stderr)

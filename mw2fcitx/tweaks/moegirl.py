@@ -81,6 +81,6 @@ tweaks = [
         [":", "/", "(", ")", "（", "）", "【", "】", "『", "』", "／"]),
     tweak_len_more_than(1),
     tweak_remove_char("·"),
-    tweak_trim_suffix(["系列"]),
+    tweak_trim_suffix(["系列", "列表", "对照表"]),
     tweak_normalize
 ]
