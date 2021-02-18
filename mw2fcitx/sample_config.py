@@ -1,4 +1,4 @@
-from mw2fcitx.tweaks.moegirl import tweaks
+from .tweaks.moegirl import tweaks
 
 exports = {
     "source": {

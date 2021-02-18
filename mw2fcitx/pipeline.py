@@ -3,9 +3,9 @@
 import os
 import sys
 
-from mw2fcitx.fetch import fetch_all_titles
-from mw2fcitx.utils import dedup
-from mw2fcitx.utils import console
+from .fetch import fetch_all_titles
+from .utils import dedup
+from .utils import console
 
 
 class MWFPipeline():

@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from mw2fcitx.pipeline import MWFPipeline
+from .pipeline import MWFPipeline
 
 
 def build(config):
