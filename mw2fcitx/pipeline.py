@@ -17,10 +17,13 @@ class MWFPipeline():
         self.exports = ""
         self.dict = ""
 
-    def load_titles(self, titles):
+    def load_titles(self, titles, replace=False):
         if isinstance(titles, str):
             titles = titles.split("\n")
-        self.titles = titles
+        if replace:
+            self.titles = titles
+        else:
+            self.titles.extend(titles)
         console.debug("{} title(s) imported.".format(len(titles)))
         self.words = self.titles
 
