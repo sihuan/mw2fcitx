@@ -17,9 +17,11 @@ class MWFPipeline():
         self.exports = ""
         self.dict = ""
 
-    def load_titles(self, titles, replace=False):
+    def load_titles(self, titles, limit=-1, replace=False):
         if isinstance(titles, str):
             titles = titles.split("\n")
+        if limit >= 0:
+            titles = titles[:limit]
         if replace:
             self.titles = titles
         else:
@@ -40,11 +42,13 @@ class MWFPipeline():
         if kwargs.get("output"):
             self.write_titles_to_file(kwargs.get("output"))
 
-    def load_titles_from_file(self, filename, **_kwargs):
+    def load_titles_from_file(self, filename, **kwargs):
+        limit = kwargs.get("file_title_limit") or kwargs.get(
+            "title_limit") or -1
         if not os.access(filename, os.R_OK):
             console.error("File {} is not readable".format(filename))
             sys.exit(1)
-        self.load_titles(open(filename, "r").read())
+        self.load_titles(open(filename, "r").read(), limit=limit)
 
     def fetch_titles(self, **kwargs):
         titles = fetch_all_titles(self.api_path, **kwargs)
