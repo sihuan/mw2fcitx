@@ -35,12 +35,17 @@ exports = {
         # MediaWiki api.php path, if to fetch titles from online.
         "api_path": "https://zh.moegirl.org.cn/api.php",
         # Title file path, if to fetch titles from local file. (optional)
-        # Only works if api_path is absent.
-        "file_path": "titles.txt",
+        # Can be a path or a list of paths.
+        "file_path": ["titles.txt"],
         "kwargs": {
-            # Title number limit for online fetching. (optional)
-            # Only works if api_path is provided.
+            # Title number limit for fetching. (optional)
             "title_limit": 120,
+            # Title number limit for fetching via API. (optional)
+            # Overrides title_limit.
+            "api_title_limit": 120,
+            # Title number limit for each fetch via file. (optional)
+            # Overrides title_limit.
+            "file_title_limit": 60,
             # Title list export path. (optional)
             "output": "titles.txt"
         }
