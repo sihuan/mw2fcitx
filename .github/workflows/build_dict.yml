@@ -4,10 +4,7 @@ on:
   push:
     branches:
       - pkg-moegirl
-  schedule:
-    # Update at 15th, 4:37 every month
-    # Avoid spikes!
-    - cron: "37 20 14 * *"
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
