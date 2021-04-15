@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GH_TRIG_TOKEN }}
           script: |
             github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
               owner: context.repo.owner,
@@ -18,3 +18,4 @@ jobs:
               workflow_id: "build_dict.yml",
               ref: 'pkg-moegirl'
             })
+          debug: true
