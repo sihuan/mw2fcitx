@@ -4,7 +4,8 @@ exports = {
     "source": {
         "api_path": "https://zh.moegirl.org.cn/api.php",
         "file_path": [
-            "extras/pcr.txt"
+            "extras/pcr.txt",
+            "extras/idolypride.txt"
         ],
         "kwargs": {
             "output": "titles.txt"
