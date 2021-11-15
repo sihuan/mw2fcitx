@@ -11,14 +11,6 @@ jobs:
     if: "(contains(github.event_name, 'schedule') || !contains(github.event.commits[0].message, 'ci ckip'))"
     runs-on: ubuntu-20.04
     steps:
-      # https://github.com/actions/virtual-environments/issues/2698#issuecomment-779262068
-      - name: Build latest runc
-        run: |
-          sudo apt-get install libseccomp-dev
-          git clone https://github.com/opencontainers/runc
-          cd runc
-          make
-          sudo make install
       - name: Checkout
         uses: actions/checkout@v2
         with:
