@@ -26,7 +26,7 @@ class MWFPipeline():
             self.titles = titles
         else:
             self.titles.extend(titles)
-        console.debug("{} title(s) imported.".format(len(titles)))
+        console.debug(f"{len(titles)} title(s) imported.")
         self.words = self.titles
 
     def write_titles_to_file(self, filename):
@@ -34,8 +34,7 @@ class MWFPipeline():
             with open(filename, "w") as file:
                 file.write("\n".join(self.titles))
         except Exception as e:
-            console.error("File {} is not writable: {}".format(
-                filename, str(e)))
+            console.error(f"File {filename} is not writable: {str(e)}")
             sys.exit(1)
 
     def post_load(self, **kwargs):
@@ -46,7 +45,7 @@ class MWFPipeline():
         limit = kwargs.get("file_title_limit") or kwargs.get(
             "title_limit") or -1
         if not os.access(filename, os.R_OK):
-            console.error("File {} is not readable".format(filename))
+            console.error(f"File {filename} is not readable")
             sys.exit(1)
         self.load_titles(open(filename, "r").read(), limit=limit)
 
@@ -59,33 +58,32 @@ class MWFPipeline():
         self.words = self.titles
 
     def convert_to_words(self, pipelines):
-        console.debug("Running {} pipelines".format(len(pipelines)))
+        console.debug(f"Running {len(pipelines)} pipelines")
         cnt = 0
         if callable(pipelines):
             pipelines = [pipelines]
         titles = self.titles
         for i in pipelines:
             cnt += 1
-            console.debug("Running pipeline {}/{} ({})".format(
-                cnt, len(pipelines), i.__name__ or "anonymous function"))
+            console.debug(
+                f"Running pipeline {cnt}/{len(pipelines)} ({i.__name__ or 'anonymous function'}')"
+            )
             titles = i(titles)
-        console.debug("Deduplicating {} items".format(len(titles)))
+        console.debug(f"Deduplicating {len(titles)} items")
         self.words = dedup(titles)
-        console.debug("Deduplication completed. {} items left.".format(
-            len(self.words)))
+        console.debug(f"Deduplication completed. {len(self.words)} items left.")
 
     def export_words(self, converter="opencc", **kwargs):
         if converter == "opencc":
-            console.debug("Exporting {} words with OpenCC".format(
-                len(self.words)))
+            console.debug(f"Exporting {len(self.words)} words with OpenCC")
             from mw2fcitx.exporters.opencc import export
             self.exports = export(self.words, **kwargs)
         elif callable(converter):
-            console.debug("Exporting {} words with custom converter".format(
-                len(self.words)))
+            console.debug(
+                f"Exporting {len(self.words)} words with custom converter")
             self.exports = converter(self.words, **kwargs)
         else:
-            console.error("No such exporter: {}".format(converter))
+            console.error(f"No such exporter: {converter}")
 
     def generate_dict(self, generator="pinyin", **kwargs):
         if generator == "pinyin":
@@ -94,12 +92,11 @@ class MWFPipeline():
             if not dest:
                 console.error(
                     "Dictgen 'pinyin' can only output to files.\n" +
-                    "Please give the file path in the 'output' argument."
-                )
+                    "Please give the file path in the 'output' argument.")
                 return
             pinyin(self.exports, **kwargs)
         elif generator == "rime":
             from mw2fcitx.dictgen import rime
             self.dict = rime(self.exports, **kwargs)
         else:
-            console.error("No such dictgen: {}".format(generator))
+            console.error(f"No such dictgen: {generator}")

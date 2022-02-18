@@ -6,7 +6,7 @@ def sanitize(obj):
     typ = type(res)
     if typ == type(sanitize):
         func_name = res.__name__ or "lambda"
-        return "[func {}]".format(func_name)
+        return f"[func {func_name}]"
     if typ == type({}):
         for i in res.keys():
             res[i] = sanitize(res[i])

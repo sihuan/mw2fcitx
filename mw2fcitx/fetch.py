@@ -13,7 +13,7 @@ from .retry import retry
 class StatusError(Exception):
 
     def __init__(self, code):
-        super().__init__("HTTP status is {}".format(code))
+        super().__init__(f"HTTP status is {code}")
 
 
 @retry()
@@ -31,26 +31,23 @@ def fetch_as_json(url):
     res = open_request(url)
     if res.status == 200:
         return json.loads(res.read())
-    console.error("Error fetching URL {}".format(url))
+    console.error(f"Error fetching URL {url}")
     raise StatusError(res.status)
 
 
 def save_to_partial(partial_path, titles, apcontinue):
-    ret = {
-        "apcontinue": apcontinue,
-        "titles": titles
-    }
+    ret = {"apcontinue": apcontinue, "titles": titles}
     try:
         with open(partial_path, "w", encoding="utf-8") as fp:
             fp.write(json.dumps(ret, ensure_ascii=False))
-        console.debug("Partial session saved to {}".format(partial_path))
+        console.debug(f"Partial session saved to {partial_path}")
     except Exception as e:
         console.error(str(e))
 
 
 def resume_from_partial(partial_path):
     if not access(partial_path, R_OK):
-        console.warn("Cannot read partial session: {}".format(partial_path))
+        console.warn(f"Cannot read partial session: {partial_path}")
         return [[], None]
     try:
         partial_data = json.load(open(partial_path, "r", encoding="utf-8"))
@@ -65,21 +62,18 @@ def resume_from_partial(partial_path):
 
 def fetch_all_titles(api_url, **kwargs):
     limit = kwargs.get("api_title_limit") or kwargs.get("title_limit") or -1
-    console.debug("Fetching titles from {}".format(api_url) +
-                  (" with a limit of {}".format(limit) if limit != -1 else ""))
+    console.debug(f"Fetching titles from {api_url}" +
+                  (f" with a limit of {limit}" if limit != -1 else ""))
     titles = []
     partial_path = kwargs.get("partial")
     initial_url = api_url + "?action=query&list=allpages&format=json"
     if partial_path is not None:
-        console.info(
-            "Partial session will be saved/read: {}".format(partial_path))
+        console.info(f"Partial session will be saved/read: {partial_path}")
         [titles, apcontinue] = resume_from_partial(partial_path)
         if apcontinue is not None:
-            initial_url = api_url + \
-                "?action=query&list=allpages&format=json&aplimit=max&apcontinue={}".format(
-                    quote_plus(apcontinue))
-            console.info("{} titles found. Continuing from {}".format(
-                len(titles), apcontinue))
+            initial_url = api_url + f"?action=query&list=allpages&format=json&aplimit=max&apcontinue={quote_plus(apcontinue)}"
+            console.info(
+                f"{len(titles)} titles found. Continuing from {apcontinue}")
     data = fetch_as_json(initial_url)
     breakNow = False
     while True:
@@ -88,7 +82,7 @@ def fetch_all_titles(api_url, **kwargs):
             if limit != -1 and len(titles) >= limit:
                 breakNow = True
                 break
-        console.debug("Got {} pages".format(len(titles)))
+        console.debug(f"Got {len(titles)} pages")
         if breakNow:
             break
         if "continue" in data:
@@ -96,8 +90,8 @@ def fetch_all_titles(api_url, **kwargs):
                 apcontinue = data["continue"]["apcontinue"]
                 data = fetch_as_json(
                     api_url +
-                    "?action=query&list=allpages&format=json&aplimit=max&apcontinue={}"
-                    .format(quote_plus(apcontinue)))
+                    f"?action=query&list=allpages&format=json&aplimit=max&apcontinue={quote_plus(apcontinue)}"
+                )
             except (HTTPException, TimeoutError, URLError) as e:
                 console.error(str(e))
                 if partial_path:

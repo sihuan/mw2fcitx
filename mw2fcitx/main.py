@@ -27,12 +27,12 @@ def get_args():
 
 
 def try_file(file):
-    console.debug("Finding config file: {}".format(file))
+    console.debug(f"Finding config file: {file}")
     if not os.access(file, os.R_OK):
         console.error("File ({}) not readable.")
         return False
     file_realpath = os.path.realpath(file)
-    console.debug("Config file path: {}".format(file_realpath))
+    console.debug(f"Config file path: {file_realpath}")
     file_path = os.path.dirname(file_realpath)
     file_name = os.path.basename(file_realpath)
     module_name = re.sub(r"\.py$", "", file_name)
@@ -41,7 +41,7 @@ def try_file(file):
         sys.path.insert(1, file_path)
         config_file = import_module(module_name)
     except Exception as e:
-        console.error("Error reading config: {}".format(str(e)))
+        console.error(f"Error reading config: {str(e)}")
         return False
     finally:
         sys.path.remove(file_path)
@@ -60,14 +60,14 @@ def main():
     else:
         config_base = try_file(file + ".py")
     if not config_base:
-        console.error("Config file {} not found or not readable".format(
-            f"{file}, {file}.py" if file.endswith("py") else file))
+        filename = f"{file}, {file}.py" if file.endswith("py") else file
+        console.error(f"Config file {filename} not found or not readable")
         sys.exit(1)
-    console.debug("Parsing config file: {}".format(file))
+    console.debug(f"Parsing config file: {file}")
     if objname not in dir(config_base):
         console.error(
-            "Exports not found. Please make sure your config in in a object called '{}'."
-            .format(objname))
+            f"Exports not found. Please make sure your config in in a object called '{objname}'."
+        )
         sys.exit(1)
     config_object = getattr(config_base, objname)
     console.debug("Config load:")

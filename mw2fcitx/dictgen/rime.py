@@ -8,8 +8,7 @@ def gen(text, **kwargs):
     text = re.sub(r'[ ][ ]*', '\t', text)
     text = text.replace("\t0", "")
     text = text.replace("'", " ")
-    text = '---\nname: {}\nversion: "{}"\nsort: by_weight\n...\n'.format(
-        name, version) + text
+    text = f'---\nname: {name}\nversion: "{version}"\nsort: by_weight\n...\n' + text
     if kwargs.get("output"):
         with open(kwargs.get("output"), "w", encoding="utf-8") as file:
             file.write(text)
