@@ -140,5 +140,6 @@ cython_debug/
 /*.raw
 *.dict
 *.dict.yaml
+*.dict.yml
 titles.txt
 /.vscode

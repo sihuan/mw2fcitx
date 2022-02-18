@@ -7,7 +7,7 @@ def test_pipeline_basic():
     pipeline.fetch_titles(title_limit=50)
     pipeline.convert_to_words(moegirl_tweaks)
     pipeline.export_words()
-    pipeline.generate_dict("rime")
+    pipeline.generate_dict(generator="rime")
 
 
 if __name__ == "__main__":

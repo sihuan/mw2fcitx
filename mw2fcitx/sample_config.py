@@ -15,7 +15,9 @@ exports = {
         tweaks,
     "converter": {
         "use": "opencc",
-        "kwargs": {}
+        "kwargs": {
+            "fixfile": "sample_fixfile.json"
+        }
     },
     "generator": [{
         "use": "rime",
