@@ -46,6 +46,8 @@ exports = {
             # Title number limit for each fetch via file. (optional)
             # Overrides title_limit.
             "file_title_limit": 60,
+            # Partial session file on exception (optional)
+            "partial": "partial.json",
             # Title list export path. (optional)
             "output": "titles.txt"
         }

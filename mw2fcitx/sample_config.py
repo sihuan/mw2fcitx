@@ -7,6 +7,7 @@ exports = {
             "api_title_limit": 120,
             "file_title_limit": 60,
             "title_limit": 240,
+            "partial": "partial.json",
             "output": "titles.txt"
         }
     },
