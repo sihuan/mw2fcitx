@@ -1,6 +1,7 @@
 from http.client import HTTPException
 import json
 import sys
+from json.decoder import JSONDecodeError
 from os import access, R_OK, W_OK
 from urllib.error import URLError
 from urllib.request import Request, urlopen
@@ -28,9 +29,13 @@ def open_request(url):
 
 
 def fetch_as_json(url):
-    res = open_request(url)
-    if res.status == 200:
-        return json.loads(res.read())
+    for _ in range(3):
+        try:
+            res = open_request(url)
+            if res.status == 200:
+                return json.loads(res.read())
+        except JSONDecodeError:
+            continue
     console.error(f"Error fetching URL {url}")
     raise StatusError(res.status)
 
