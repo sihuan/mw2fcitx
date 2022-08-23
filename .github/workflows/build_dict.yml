@@ -23,10 +23,38 @@ jobs:
           mkdir $GITHUB_WORKSPACE/artifacts
           docker run -v $GITHUB_WORKSPACE/artifacts:/artifacts -v $GITHUB_WORKSPACE/toolkit:/toolkit archlinux:base-devel bash /toolkit/utils/build.sh
 
+      - name: Checkout profile
+        uses: actions/checkout@v2
+        with:
+          ref: pkg-moegirl
+          persist-credentials: false
+          fetch-depth: "0"
+          path: "profile"
+
+      - name: Update date
+        run: |
+          pushd profile
+          export DATE=`date +%Y%m%d`
+          echo $DATE > LATEST
+          git add ./LATEST
+          git config --local user.email "noreply@example.com"
+          git config --local user.name "GitHub Actions"
+          git commit -m "chore: version $DATE"
+          popd
+
+      - name: Push the commit
+        uses: ad-m/github-push-action@master
+        with:
+          branch: pkg-moegirl
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Release
         shell: bash
         run: |
           export DATE=`date +%Y%m%d`
-          wget https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz -O ghr.tgz
+          wget https://github.com/tcnksm/ghr/releases/download/v0.15.0/ghr_v0.15.0_linux_amd64.tar.gz -O ghr.tgz
           tar xzf ghr.tgz
-          ghr_v0.13.0_linux_amd64/ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${GITHUB_REPOSITORY/\/*/} -r ${GITHUB_REPOSITORY/*\//} -c ${GITHUB_SHA} -delete ${DATE} ./artifacts/
+          pushd profile
+          export COMMIT=$(git rev-parse HEAD)
+          popd
+          ghr_v0.13.0_linux_amd64/ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${GITHUB_REPOSITORY/\/*/} -r ${GITHUB_REPOSITORY/*\//} -c "$COMMIT" -delete ${DATE} ./artifacts/
