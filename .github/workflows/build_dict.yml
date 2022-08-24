@@ -47,6 +47,7 @@ jobs:
         with:
           branch: pkg-moegirl
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: profile
 
       - name: Release
         shell: bash
