@@ -102,7 +102,7 @@ def fetch_all_titles(api_url, **kwargs):
                 if partial_path:
                     save_to_partial(partial_path, titles, apcontinue)
                 sys.exit(1)
-            except KeyboardInterrupt as e:
+            except KeyboardInterrupt:
                 console.error("Keyboard interrupt received. Stopping.")
                 if partial_path:
                     save_to_partial(partial_path, titles, apcontinue)
