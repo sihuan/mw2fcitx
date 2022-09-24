@@ -58,4 +58,4 @@ jobs:
           pushd profile
           export COMMIT=$(git rev-parse HEAD)
           popd
-          ghr_v0.13.0_linux_amd64/ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${GITHUB_REPOSITORY/\/*/} -r ${GITHUB_REPOSITORY/*\//} -c "$COMMIT" -delete ${DATE} ./artifacts/
+          ghr_v0.15.0_linux_amd64/ghr -t ${{ secrets.GITHUB_TOKEN }} -u ${GITHUB_REPOSITORY/\/*/} -r ${GITHUB_REPOSITORY/*\//} -c "$COMMIT" -delete ${DATE} ./artifacts/
