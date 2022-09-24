@@ -2,8 +2,9 @@ from http.client import HTTPException
 import json
 import sys
 from json.decoder import JSONDecodeError
-from os import access, R_OK, W_OK
-from urllib.error import URLError
+from os import access, R_OK, fdopen
+from tempfile import mkstemp
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 from urllib.parse import quote_plus
 
@@ -34,7 +35,8 @@ def fetch_as_json(url):
             res = open_request(url)
             if res.status == 200:
                 return json.loads(res.read())
-        except JSONDecodeError:
+        except (JSONDecodeError, HTTPError) as e:
+            console.error(f"Fetch error {str(e)}, retrying")
             continue
     console.error(f"Error fetching URL {url}")
     raise StatusError(res.status)
@@ -71,15 +73,31 @@ def fetch_all_titles(api_url, **kwargs):
                   (f" with a limit of {limit}" if limit != -1 else ""))
     titles = []
     partial_path = kwargs.get("partial")
-    initial_url = api_url + "?action=query&list=allpages&format=json"
+    fetch_url = api_url + "?action=query&list=allpages&format=json"
     if partial_path is not None:
         console.info(f"Partial session will be saved/read: {partial_path}")
         [titles, apcontinue] = resume_from_partial(partial_path)
         if apcontinue is not None:
-            initial_url = api_url + f"?action=query&list=allpages&format=json&aplimit=max&apcontinue={quote_plus(apcontinue)}"
+            fetch_url = api_url + f"?action=query&list=allpages&format=json&aplimit=max&apcontinue={quote_plus(apcontinue)}"
             console.info(
                 f"{len(titles)} titles found. Continuing from {apcontinue}")
-    data = fetch_as_json(initial_url)
+    try:
+        data = fetch_as_json(fetch_url)
+    except (StatusError, HTTPError):
+        # It somehow cannot proceed
+        if len(titles) == 0:
+            raise Exception("Failed to retrieve any title")
+        else:
+            # Failed during fetching
+            [fd, fpath] = mkstemp(prefix="mwf-titles")
+            with fdopen(fd, 'w') as f:
+                f.write('\n'.join(titles))
+            console.error(
+                f"Fetch halted due to exceptions. Check '{fpath}' for current progress."
+            )
+            raise Exception(
+                f"Failed during fetching the titles: {len(titles)} fetched and failed at '{apcontinue}'."
+            )
     breakNow = False
     while True:
         for i in map(lambda x: x["title"], data["query"]["allpages"]):
