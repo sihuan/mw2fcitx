@@ -3,7 +3,9 @@ set -e
 
 pushd /toolkit
 
-pacman -Syu --noconfirm libime python-pip
+pacman -Syu --noconfirm libime python-pip python-virtualenv
+virtualenv venv
+source venv/bin/activate
 pip install -r requirements.txt
 mw2fcitx -c utils/moegirl_dict.py
 
