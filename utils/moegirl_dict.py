@@ -3,7 +3,7 @@ from mw2fcitx.tweaks.moegirl import tweaks
 exports = {
     "source": {
         "file_path": [
-            "extras/20240509.txt",
+            "titles.txt",
             "extras/pcr.txt"
         ],
         "kwargs": {
