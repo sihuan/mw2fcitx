@@ -8,7 +8,7 @@ jobs:
     name: Trigger build & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v7
         with:
           script: |
             github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
