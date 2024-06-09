@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: "0"
@@ -24,7 +24,7 @@ jobs:
           docker run -v $GITHUB_WORKSPACE/artifacts:/artifacts -v $GITHUB_WORKSPACE/toolkit:/toolkit archlinux:base-devel bash /toolkit/utils/build.sh
 
       - name: Checkout profile
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: pkg-moegirl
           persist-credentials: false
