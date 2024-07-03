@@ -1,18 +1,18 @@
-# Maintainer: Howard Cheung <mail@h-cheung.cf>
-# Contributor: Outvi V <oss@outv.im>
+# Maintainer: SiHuaN
 
-pkgname=fcitx5-pinyin-moegirl
+pkgname=fcitx5-pinyin-mihohim
 pkgver=99999999
-_reponame=fcitx5-pinyin-moegirl
+#_reponame=fcitx5-pinyin-mihohim
 pkgrel=1
-pkgdesc="Fcitx 5 Pinyin Dictionary from moegirl.org"
+pkgdesc="mihohim Fcitx 5 Pinyin Dictionary from wiki.biligame.com"
 arch=('any')
-url="https://github.com/outloudvi/mw2fcitx"
-license=('cc-by-nc-sa-3.0')
+url="https://github.com/sihuan/mw2fcitx"
+#license=('cc-by-nc-sa-3.0')
 #makedepends=('libime' 'opencc' 'pypinyin')
-source=("moegirl.dict")
+groups=('fcitx5-pinyin-mihoyo')
+source=("mihohim.dict")
 md5sums=("SKIP")
 
 package() {
-  install -Dm644 moegirl.dict -t $pkgdir/usr/share/fcitx5/pinyin/dictionaries/
+  install -Dm644 mihohim.dict -t $pkgdir/usr/share/fcitx5/pinyin/dictionaries/
 }

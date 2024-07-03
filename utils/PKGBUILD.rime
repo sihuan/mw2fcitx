@@ -1,18 +1,18 @@
-# Maintainer: Howard Cheung <mail@h-cheung.cf>
-# Contributor: Outvi V <oss@outv.im>
+# Maintainer: SiHuaN
 
-pkgname=fcitx5-pinyin-moegirl-rime
+pkgname=fcitx5-pinyin-mihohim-rime
 pkgver=99999999
-_reponame=fcitx5-pinyin-moegirl
+#_reponame=fcitx5-pinyin-mihohim
 pkgrel=1
-pkgdesc="Fcitx 5 Pinyin Dictionary from moegirl.org for rime"
+pkgdesc="mihohim Fcitx 5 Pinyin Dictionary from wiki.biligame.com for rime"
 arch=('any')
-url="https://github.com/outloudvi/mw2fcitx"
-license=('cc-by-nc-sa-3.0')
+url="https://github.com/sihuan/mw2fcitx"
+#license=('cc-by-nc-sa-3.0')
 #makedepends=('libime' 'opencc' 'pypinyin')
-source=("moegirl.dict.yaml")
+groups=('fcitx5-pinyin-mihoyo-rime')
+source=("mihohim.dict.yaml")
 md5sums=("SKIP")
 
 package() {
-  install -Dm644 moegirl.dict.yaml -t $pkgdir/usr/share/rime-data/
+  install -Dm644 mihohim.dict.yaml -t $pkgdir/usr/share/rime-data/
 }

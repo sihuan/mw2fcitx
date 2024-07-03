@@ -3,7 +3,7 @@ name: Build dictionary
 on:
   push:
     branches:
-      - pkg-moegirl
+      - mihoyo
   workflow_dispatch: {}
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout profile
         uses: actions/checkout@v4
         with:
-          ref: pkg-moegirl
+          ref: mihoyo
           persist-credentials: false
           fetch-depth: "0"
           path: "profile"
@@ -45,7 +45,7 @@ jobs:
       - name: Push the commit
         uses: ad-m/github-push-action@master
         with:
-          branch: pkg-moegirl
+          branch: mihoyo
           github_token: ${{ secrets.GITHUB_TOKEN }}
           directory: profile
 
