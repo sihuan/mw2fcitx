@@ -23,7 +23,7 @@ starrail_tweaks = [
 
 exports = {
     "source": {
-        "api_path": "https://wiki.biligame.com/sr/api.php",
+        "api_path": "https://r.zjuyk.site/https://wiki.biligame.com/sr/api.php",
         "file_path": [
             "extras/starrail.txt"
         ],

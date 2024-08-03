@@ -22,7 +22,7 @@ honkai3rd_tweaks = [
 
 exports = {
     "source": {
-        "api_path": "https://wiki.biligame.com/bh3/api.php",
+        "api_path": "https://r.zjuyk.site/https://wiki.biligame.com/bh3/api.php",
         "file_path": [
             "extras/honkai3rd.txt"
         ],
