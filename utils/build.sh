@@ -14,13 +14,13 @@ for game in ${mihoyo[@]}; do
     mw2fcitx -c utils/${game}_dict.py
 done
 
-useradd archbuild
-chmod -R a+rwx .
+# useradd archbuild
+# chmod -R a+rwx .
 export DATE=$(date +%Y%m%d)
-su archbuild utils/makepkg.sh
+# su archbuild utils/makepkg.sh
 
 for game in ${mihoyo[@]}; do
-    cp fcitx5-pinyin-${game}* /artifacts
+    # cp fcitx5-pinyin-${game}* /artifacts
     cp ./${game}.dict /artifacts
     cp ./${game}.dict.yaml /artifacts
     cp ./${game}_titles.txt /artifacts
